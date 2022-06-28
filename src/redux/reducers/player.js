@@ -5,9 +5,11 @@ const INITIAL_STATE = {
   gravatarEmail: '', // email-da-pessoa
 };
 
-export default player = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   default:
     return state;
   }
 };
+
+export default player;
