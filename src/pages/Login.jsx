@@ -4,7 +4,7 @@ import '../styles/Login.css';
 // import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {
-  name: '',
+  name: '', // nome
   gravatarEmail: '',
   isDisabled: false,
 };
