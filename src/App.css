@@ -1,7 +1,36 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap') ;
+
+* {
   box-sizing: border-box;
+  font-family: Poppins , sans-serif;
   margin: 0;
   padding: 0;
+  text-decoration: none;
+}
+
+/* <-------- ROOT --------> */
+:root {
+
+  --bg-color: #1b2430;
+
+  --alt-bg-color: white;
+
+  --text-color: white;
+
+  --alt-text-color: #12171d;
+
+  --primary-color: #f2ebe9;
+
+  --secondary-color: #816797;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-origin: content-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .App {
