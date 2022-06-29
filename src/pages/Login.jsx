@@ -26,13 +26,13 @@ class Login extends React.Component {
     const { name, gravatarEmail } = this.state;
     const { setPlayerAction, history } = this.props;
 
+    history.push('/trivia');
     setPlayerAction(name, gravatarEmail);
     await getToken();
-
-    history.push('/trivia');
   }
 
   render() {
+    const { history } = this.props;
     const { gravatarEmail, name } = this.state;
     const regExp = /\w+@[a-z]+\.com/g;
     let { isDisabled } = this.state;
@@ -76,6 +76,14 @@ class Login extends React.Component {
             disabled={ !isDisabled }
           >
             Play!
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            className="btn mt-50"
+            onClick={ () => history.push('/settings') }
+          >
+            Settings
           </button>
         </form>
       </section>
