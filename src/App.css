@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  color: inherit;
+  color: var(--text-color);
   font-family: Poppins , sans-serif;
   margin: 0;
   outline: none;
