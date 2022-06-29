@@ -4,11 +4,13 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
+import Trivia from './pages/Trivia';
 
 export default function App() {
   return (
     <Switch>
       <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+      <Route exact path="/trivia" render={ (props) => <Trivia { ...props } /> } />
       <Route exact path="/settings" render={ (props) => <Settings { ...props } /> } />
     </Switch>
   );
