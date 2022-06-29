@@ -1,3 +1,5 @@
+import { SET_PLAYER } from '../actions';
+
 const INITIAL_STATE = {
   name: '', // nome-da-pessoa
   assertions: 0, // número-de-acertos
@@ -7,6 +9,13 @@ const INITIAL_STATE = {
 
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case SET_PLAYER:
+    return {
+      ...state,
+      name: action.name,
+      gravatarEmail: action.email,
+    };
+
   default:
     return state;
   }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setPlayer } from '../redux/actions';
 import '../styles/Login.css';
-// import PropTypes from 'prop-types';
+import getToken from '../services/fetchAPI';
 
 const INITIAL_STATE = {
-  name: '', // nome
+  name: '',
   gravatarEmail: '',
   isDisabled: false,
 };
@@ -20,8 +22,14 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleClick = () => {
+  handleClick = async () => {
+    const { name, gravatarEmail } = this.state;
+    const { setPlayerAction, history } = this.props;
 
+    setPlayerAction(name, gravatarEmail);
+    await getToken();
+
+    history.push('/trivia');
   }
 
   render() {
@@ -75,11 +83,15 @@ class Login extends React.Component {
   }
 }
 
-export default connect(null, null)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  setPlayerAction: (name, email) => dispatch(setPlayer(name, email)),
+});
 
-// Login.propTypes = {
-//   setEmailToRedux: PropTypes.func.isRequired,
-//   history: PropTypes.shape({
-//     push: PropTypes.func,
-//   }).isRequired,
-// };
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  setPlayerAction: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
