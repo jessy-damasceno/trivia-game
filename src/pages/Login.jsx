@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setPlayer } from '../redux/actions';
 import '../styles/Login.css';
-import getToken from '../services/fetchAPI';
+import { getToken } from '../services/fetchAPI';
 
 const INITIAL_STATE = {
   name: '',

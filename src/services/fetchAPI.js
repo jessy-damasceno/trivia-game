@@ -1,7 +1,11 @@
-const URL = 'https://opentdb.com/api_token.php?command=request';
+const TOKEN_URL = 'https://opentdb.com/api_token.php?command=request';
+const TRIVIA_URL = 'https://opentdb.com/api.php?amount=5&token=';
 const KEY = 'token';
 
-const getToken = () => fetch(URL).then((response) => response.json())
+export const getToken = () => fetch(TOKEN_URL).then((response) => response.json())
   .then((json) => localStorage.setItem(KEY, json.token));
 
-export default getToken;
+export const getTriviaQuestions = () => {
+  const token = localStorage.getItem(KEY);
+  return fetch(TRIVIA_URL + token).then((response) => response.json());
+};
