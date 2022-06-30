@@ -1,0 +1,23 @@
+.rotate-center {
+  animation: rotate-center 2s ease 0s infinite;
+}
+
+@keyframes rotate-center {
+
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.counter_img {
+  width: 50px;
+}

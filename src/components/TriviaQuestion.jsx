@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/TriviaQuestion.css';
-import ampulheta from '../assets/ampulheta.png';
 import check from '../assets/check.png';
 import wrong from '../assets/wrong.png';
+import Counter from './Counter';
 
 function decodeEntity(inputStr) {
   const textarea = document.createElement('textarea');
@@ -69,7 +69,7 @@ export default class TriviaQuestion extends React.Component {
       <section className="question-container">
         <h4 data-testid="question-category">{category}</h4>
         { !isClicked
-          && <img src={ ampulheta } alt="ampulheta" className="img rotate-center" />}
+          && <Counter />}
         { isClicked
           && <img
             src={ isCorrectAnswer ? check : wrong }
