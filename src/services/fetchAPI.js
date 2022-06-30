@@ -7,5 +7,7 @@ export const getToken = () => fetch(TOKEN_URL).then((response) => response.json(
 
 export const getTriviaQuestions = () => {
   const token = localStorage.getItem(KEY);
-  return fetch(TRIVIA_URL + token).then((response) => response.json());
+  if (token) {
+    return fetch(TRIVIA_URL + token).then((response) => response.json());
+  }
 };

@@ -1,10 +1,10 @@
 import { SET_PLAYER } from '../actions';
 
 const INITIAL_STATE = {
-  name: 'Juninho', // nome-da-pessoa
+  name: '', // nome-da-pessoa
   assertions: 0, // número-de-acertos
   score: 0, // pontuação
-  gravatarEmail: 'juninho@email.com', // email-da-pessoa
+  gravatarEmail: '', // email-da-pessoa
 };
 
 const player = (state = INITIAL_STATE, action) => {

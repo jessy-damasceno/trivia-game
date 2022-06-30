@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getTriviaQuestions, KEY } from '../services/fetchAPI';
+import TriviaQuestion from '../components/TriviaQuestion';
 
 export default class Trivia extends React.Component {
   state = {
@@ -27,9 +28,12 @@ export default class Trivia extends React.Component {
 
   render() {
     const { questions, questNumber } = this.state;
-    console.log(questions[questNumber]);
+
     return (
-      <Header />
+      <>
+        <Header />
+        {questions.length && <TriviaQuestion quest={ questions[questNumber] } />}
+      </>
     );
   }
 }
