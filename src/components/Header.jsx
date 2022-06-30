@@ -6,7 +6,7 @@ import '../styles/Header.css';
 
 class Header extends React.Component {
   render() {
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     return (
       <header>
         <span data-testid="header-player-name">{name}</span>
@@ -16,7 +16,7 @@ class Header extends React.Component {
           src={ `https://www.gravatar.com/avatar/${MD5(gravatarEmail).toString()}` }
           alt="gravatar"
         />
-        <span data-testid="header-score">0</span>
+        <span data-testid="header-score">{score}</span>
       </header>
     );
   }
@@ -32,4 +32,5 @@ export default connect(mapStateToProps, null)(Header);
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
