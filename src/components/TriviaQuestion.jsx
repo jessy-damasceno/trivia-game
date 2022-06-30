@@ -24,6 +24,27 @@ export default class TriviaQuestion extends React.Component {
   state = {
     isClicked: false,
     isCorrectAnswer: false,
+    shuffledQuestions: [],
+  }
+
+  componentDidMount() {
+    this.setShuffledQuestion();
+  }
+
+  setShuffledQuestion = () => {
+    const { quest: {
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers,
+    } } = this.props;
+
+    const allAnswers = [...incorrectAnswers, correctAnswer].map((answer, index) => ({
+      answer,
+      datatestid: answer === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`,
+      isCorrect: answer === correctAnswer,
+    }));
+    shuffleArray(allAnswers);
+
+    this.setState({ shuffledQuestions: allAnswers });
   }
 
   handleClick = (isCorrect) => {
@@ -38,24 +59,11 @@ export default class TriviaQuestion extends React.Component {
   checkAnswers = (isCorrect) => (isCorrect ? 'm5 btn green' : 'm5 btn red');
 
   render() {
-    const { isClicked, isCorrectAnswer } = this.state;
-
+    const { isClicked, isCorrectAnswer, shuffledQuestions } = this.state;
     const { quest: {
       category,
-      // type,
-      // difficulty,
       question,
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
     } } = this.props;
-
-    const allAnswers = [...incorrectAnswers, correctAnswer].map((answer, index) => ({
-      answer,
-      datatestid: answer === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`,
-      isCorrect: answer === correctAnswer,
-    }));
-
-    shuffleArray(allAnswers);
 
     return (
       <section className="question-container">
@@ -72,7 +80,7 @@ export default class TriviaQuestion extends React.Component {
           {decodeEntity(question)}
         </p>
         <div data-testid="answer-options">
-          {allAnswers.map(({ answer, datatestid, isCorrect }) => (
+          {shuffledQuestions.map(({ answer, datatestid, isCorrect }) => (
             <button
               key={ datatestid }
               data-testid={ datatestid }
