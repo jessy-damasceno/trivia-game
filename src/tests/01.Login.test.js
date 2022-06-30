@@ -1,6 +1,6 @@
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux";
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import App from "../App";
 import userEvent from "@testing-library/user-event";
 
@@ -58,7 +58,7 @@ describe('1. Crie a tela de login, onde a pessoa que joga deve preencher as info
     expect(loginButton).toBeDisabled();
   });
 
-  it('Testa se, ao clicar no botão PLAY, a página é redirecionada para a tela de jogo', () => {
+  it('Testa se, ao clicar no botão PLAY, a página é redirecionada para a tela de jogo', async () => {
     const { history } = renderWithRouterAndRedux(<App/>)
 
     const inputName = screen.getByTestId(PLAYER_NAME_TEST_ID);
@@ -70,7 +70,7 @@ describe('1. Crie a tela de login, onde a pessoa que joga deve preencher as info
 
     userEvent.click(loginButton);
 
-    expect(history.location.pathname).toBe('/trivia');
+    await waitFor(() => expect(history.location.pathname).toBe('/trivia'));
   });
 
   it('Testa o botão de settings', () => {

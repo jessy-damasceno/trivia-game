@@ -26,9 +26,9 @@ class Login extends React.Component {
     const { name, gravatarEmail } = this.state;
     const { setPlayerAction, history } = this.props;
 
-    history.push('/trivia');
     setPlayerAction(name, gravatarEmail);
     await getToken();
+    history.push('/trivia');
   }
 
   render() {

@@ -1,0 +1,50 @@
+.question-container {
+  align-items: center;
+  background-color: black;
+  border: 3px solid white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  height: 100%;
+  justify-content: center;
+  margin: auto;
+  padding: 2rem;
+  width: 60%;
+}
+
+.m5 {
+  background-color: black;
+  border: 3px solid white;
+  margin: 5px;
+}
+
+.green {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.red {
+  border: 3px solid red;
+}
+
+.img {
+  width: 50px;
+}
+
+.rotate-center {
+  animation: rotate-center 2s ease 0s infinite;
+}
+
+@keyframes rotate-center {
+
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
