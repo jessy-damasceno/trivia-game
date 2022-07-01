@@ -74,7 +74,7 @@ class TriviaQuestion extends React.Component {
   }
 
   handleClick = (isCorrect) => {
-    const { setScoreAction, nextQuestion } = this.props;
+    const { setScoreAction } = this.props;
 
     this.stopCounting();
     this.setState({ isClicked: true });
@@ -84,7 +84,6 @@ class TriviaQuestion extends React.Component {
     } else {
       this.setState({ isCorrectAnswer: false });
     }
-    nextQuestion();
   }
 
   score = () => {
@@ -107,8 +106,9 @@ class TriviaQuestion extends React.Component {
   }
 
   next = () => {
-    const { last, history } = this.props;
-
+    const { last, history, nextQuestion } = this.props;
+    console.log(last);
+    nextQuestion();
     if (last) {
       history.push('/feedback');
     } else {
