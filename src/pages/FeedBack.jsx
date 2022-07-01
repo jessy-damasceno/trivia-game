@@ -10,9 +10,9 @@ class FeedbackMessage extends React.Component {
     const rightAnwsers = 3;
     const feedbackFunction = () => {
       if (assertions < rightAnwsers) {
-        return <h1>Could be better...</h1>;
+        return <h1 data-testid="feedback-text">Could be better...</h1>;
       } if (assertions >= rightAnwsers) {
-        return <h1>Well Done!</h1>;
+        return <h1 data-testid="feedback-text">Well Done!</h1>;
       }
     };
 
@@ -45,7 +45,7 @@ class FeedbackMessage extends React.Component {
         <button
           type="button"
           onClick={ onClickRanking }
-          data-testid="btn-play-again"
+          data-testid="btn-ranking"
         >
           Ranking
         </button>
