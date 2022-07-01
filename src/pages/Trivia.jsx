@@ -26,13 +26,22 @@ export default class Trivia extends React.Component {
     }
   }
 
+  nextQuestion = () => {
+    this.setState(({ questNumber }) => ({ questNumber: questNumber + 1 }));
+  }
+
   render() {
     const { questions, questNumber } = this.state;
 
     return (
       <>
         <Header />
-        {questions.length && <TriviaQuestion quest={ questions[questNumber] } />}
+        {questions.length && <TriviaQuestion
+          quest={ questions[questNumber] }
+          last={ (questions.length - 1) === questNumber }
+          nextQuestion={ this.nextQuestion }
+          questNumber={ questNumber }
+        />}
       </>
     );
   }

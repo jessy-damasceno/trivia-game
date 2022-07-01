@@ -18,6 +18,15 @@
 }
 
 
-.counter_img {
+.counterimg {
   width: 50px;
+}
+
+.counter-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: calc(50px + 3rem);
+  justify-content: center;
 }

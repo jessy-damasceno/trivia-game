@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/TriviaQuestion.css';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import interrogation from '../assets/interrogation.png';
 import check from '../assets/check.png';
 import wrong from '../assets/wrong.png';
-import Counter from './Counter';
+import ampulheta from '../assets/ampulheta.png';
+import '../styles/TriviaQuestion.css';
+import { setScore } from '../redux/actions';
 
 function decodeEntity(inputStr) {
   const textarea = document.createElement('textarea');
@@ -20,15 +24,37 @@ const shuffleArray = (array) => {
   }
 };
 
-export default class TriviaQuestion extends React.Component {
+const multiplier = {
+  hard: 3,
+  medium: 2,
+  easy: 1,
+};
+
+const INITIAL_STATE = {
+  isClicked: false,
+  isCorrectAnswer: false,
+  counter: 30,
+  intervalId: 0,
+  isCounting: true,
+};
+
+class TriviaQuestion extends React.Component {
   state = {
-    isClicked: false,
-    isCorrectAnswer: false,
+    ...INITIAL_STATE,
     shuffledQuestions: [],
   }
 
   componentDidMount() {
     this.setShuffledQuestion();
+    const intervalId = setInterval(this.timer, +'1000');
+    // store intervalId in the state so it can be accessed later:
+    this.setState({ intervalId });
+  }
+
+  componentWillUnmount() {
+    const { intervalId } = this.state;
+    // use intervalId from the state to clear the interval
+    clearInterval(intervalId);
   }
 
   setShuffledQuestion = () => {
@@ -48,18 +74,62 @@ export default class TriviaQuestion extends React.Component {
   }
 
   handleClick = (isCorrect) => {
+    const { setScoreAction, nextQuestion } = this.props;
+
+    this.stopCounting();
     this.setState({ isClicked: true });
     if (isCorrect) {
       this.setState({ isCorrectAnswer: true });
+      setScoreAction(this.score());
     } else {
       this.setState({ isCorrectAnswer: false });
     }
+    nextQuestion();
   }
 
-  checkAnswers = (isCorrect) => (isCorrect ? 'm5 btn green' : 'm5 btn red');
+  score = () => {
+    const { quest: { difficulty } } = this.props;
+    const { counter } = this.state;
+
+    return +'10' + (counter * multiplier[difficulty]);
+  }
+
+  timer = () => {
+    const { counter, intervalId } = this.state;
+    // setState method is used to update the state
+    const newCount = counter - 1;
+    if (newCount > +'0') {
+      this.setState({ counter: newCount });
+    } else {
+      clearInterval(intervalId);
+      this.setState({ isCounting: false, isClicked: true });
+    }
+  }
+
+  next = () => {
+    const { last, history } = this.props;
+
+    if (last) {
+      history.push('/feedback');
+    } else {
+      const intervalId = setInterval(this.timer, +'1000');
+      this.setState({ ...INITIAL_STATE, intervalId });
+      this.setShuffledQuestion();
+    }
+  }
+
+  stopCounting = () => {
+    const { intervalId } = this.state;
+    clearInterval(intervalId);
+    this.setState({ isCounting: false });
+  }
+
+  checkAnswers = (isCorrect) => (isCorrect
+    ? 'm5 btn green disabled' : 'm5 btn red disabled');
 
   render() {
-    const { isClicked, isCorrectAnswer, shuffledQuestions } = this.state;
+    const { isClicked, isCorrectAnswer,
+      shuffledQuestions, counter, isCounting } = this.state;
     const { quest: {
       category,
       question,
@@ -68,14 +138,35 @@ export default class TriviaQuestion extends React.Component {
     return (
       <section className="question-container">
         <h4 data-testid="question-category">{category}</h4>
-        { !isClicked
-          && <Counter />}
-        { isClicked
-          && <img
+        { !isClicked ? (
+          <img src={ interrogation } alt="responda" className="img" />
+        ) : (
+          <img
             src={ isCorrectAnswer ? check : wrong }
             alt={ isCorrectAnswer ? 'check' : 'wrong' }
             className="img"
-          />}
+          />)}
+        <div className="counter-container">
+          {isCounting ? (
+            <>
+              <img
+                src={ ampulheta }
+                alt="ampulheta"
+                className="img rotate-center"
+              />
+              <span>{counter}</span>
+            </>
+          ) : (
+            <button
+              type="button"
+              data-testid="btn-next"
+              className="btn"
+              onClick={ this.next }
+            >
+              NEXT
+            </button>
+          )}
+        </div>
         <p data-testid="question-text">
           {decodeEntity(question)}
         </p>
@@ -86,6 +177,7 @@ export default class TriviaQuestion extends React.Component {
               data-testid={ datatestid }
               type="button"
               onClick={ () => this.handleClick(isCorrect) }
+              disabled={ isClicked }
               className={ isClicked ? this.checkAnswers(isCorrect) : 'm5 btn' }
             >
               {decodeEntity(answer)}
@@ -97,6 +189,12 @@ export default class TriviaQuestion extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setScoreAction: (score) => dispatch(setScore(score)),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(TriviaQuestion));
+
 TriviaQuestion.propTypes = {
   quest: PropTypes.shape({
     category: PropTypes.string,
@@ -105,5 +203,11 @@ TriviaQuestion.propTypes = {
     question: PropTypes.string,
     correct_answer: PropTypes.string,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  setScoreAction: PropTypes.func.isRequired,
+  nextQuestion: PropTypes.func.isRequired,
+  last: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
 };
