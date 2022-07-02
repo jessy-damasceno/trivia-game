@@ -19,7 +19,7 @@ class Ranking extends React.Component {
     reset();
     history.push('/');
   };
-
+  
   render() {
     const { rankingList } = this.state;
     return (
