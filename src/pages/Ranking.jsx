@@ -19,7 +19,7 @@ class Ranking extends React.Component {
     reset();
     history.push('/');
   };
-  
+
   render() {
     const { rankingList } = this.state;
     return (
@@ -32,7 +32,7 @@ class Ranking extends React.Component {
         >
           Voltar ao Início
         </button>
-        {rankingList?.map((player, index) => (
+        {rankingList.map((player, index) => (
           <div key={ index }>
             <p data-testid={ `player-name-${index}` }>{player.name}</p>
             <p data-testid={ `player-score-${index}` }>{player.score}</p>
