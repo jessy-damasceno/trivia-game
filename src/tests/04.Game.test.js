@@ -6,5 +6,5 @@ import userEvent from "@testing-library/user-event";
 
 describe('Teste a página de jogo', () => {
 
-  it('')
+  it('testando o game')
 });
