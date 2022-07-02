@@ -70,7 +70,7 @@ describe('1. Crie a tela de login, onde a pessoa que joga deve preencher as info
 
     userEvent.click(loginButton);
 
-    await waitFor(() => expect(history.location.pathname).toBe('/trivia'));
+    await waitFor(() => expect(history.location.pathname).toBe('/trivia'), { timeout: 5000 });
   });
 
   it('Testa o botão de settings', () => {

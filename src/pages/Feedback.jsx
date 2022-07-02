@@ -5,38 +5,32 @@ import Header from '../components/Header';
 import '../styles/Header.css';
 
 class FeedbackMessage extends React.Component {
+  onClickPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
+  onClickRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  };
+
   render() {
     const { assertions, score } = this.props;
-    const rightAnwsers = 3;
-    const feedbackFunction = () => {
-      if (assertions < rightAnwsers) {
-        return <h1 data-testid="feedback-text">Could be better...</h1>;
-      } if (assertions >= rightAnwsers) {
-        return <h1 data-testid="feedback-text">Well Done!</h1>;
-      }
-    };
-
-    const onClickPlayAgain = () => {
-      const { history } = this.props;
-      history.push('/');
-    };
-
-    const onClickRanking = () => {
-      const { history } = this.props;
-      history.push('/ranking');
-    };
 
     return (
       <>
         <Header />
-        {feedbackFunction()}
+        <h1 data-testid="feedback-text">
+          {assertions >= +'3' ? 'Well Done!' : 'Could be better...'}
+        </h1>
         <h2>Total de pontos:</h2>
         <p data-testid="feedback-total-score">{score}</p>
         <h2>Total de acertos:</h2>
         <p data-testid="feedback-total-question">{assertions}</p>
         <button
           type="button"
-          onClick={ onClickPlayAgain }
+          onClick={ this.onClickPlayAgain }
           data-testid="btn-play-again"
         >
           Play Again
@@ -44,7 +38,7 @@ class FeedbackMessage extends React.Component {
         </button>
         <button
           type="button"
-          onClick={ onClickRanking }
+          onClick={ this.onClickRanking }
           data-testid="btn-ranking"
         >
           Ranking
