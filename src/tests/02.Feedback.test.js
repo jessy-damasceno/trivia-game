@@ -9,7 +9,7 @@ const MOCK_PLAYER = {
     name: 'Juninho Motoqueiro',
     gravatarEmail: 'juninhodamoto@trybe.com',
     assertions: 4,
-    score: 100,
+    score: 100, // pontuação
   }
 }
 describe('2. Teste da página de feedback', () => {
