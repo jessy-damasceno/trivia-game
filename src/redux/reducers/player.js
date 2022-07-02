@@ -1,4 +1,4 @@
-import { SET_PLAYER, SET_SCORE } from '../actions';
+import { SET_PLAYER, SET_SCORE, RESET } from '../actions';
 
 const INITIAL_STATE = {
   name: '', // nome-da-pessoa
@@ -21,6 +21,11 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       score: state.score + action.score,
       assertions: state.assertions + 1,
+    };
+
+  case RESET:
+    return {
+      ...INITIAL_STATE,
     };
 
   default:

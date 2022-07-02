@@ -8,6 +8,7 @@ import wrong from '../assets/wrong.png';
 import ampulheta from '../assets/ampulheta.png';
 import '../styles/TriviaQuestion.css';
 import { setScore } from '../redux/actions';
+import { setRanking } from '../services/rankingStorage';
 
 function decodeEntity(inputStr) {
   const textarea = document.createElement('textarea');
@@ -106,11 +107,12 @@ class TriviaQuestion extends React.Component {
   }
 
   next = () => {
-    const { last, history, nextQuestion } = this.props;
+    const { last, history, nextQuestion, name, score, picture } = this.props;
     console.log(last);
     nextQuestion();
     if (last) {
       history.push('/feedback');
+      setRanking({ name, score, picture });
     } else {
       const intervalId = setInterval(this.timer, +'1000');
       this.setState({ ...INITIAL_STATE, intervalId });
@@ -189,11 +191,17 @@ class TriviaQuestion extends React.Component {
   }
 }
 
+const mapStateToProps = ({ player }) => ({
+  name: player.name,
+  score: player.score,
+  picture: player.gravatarEmail,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setScoreAction: (score) => dispatch(setScore(score)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(TriviaQuestion));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TriviaQuestion));
 
 TriviaQuestion.propTypes = {
   quest: PropTypes.shape({
@@ -210,4 +218,7 @@ TriviaQuestion.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  picture: PropTypes.string.isRequired,
 };
