@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import '../styles/Header.css';
+import '../styles/Feedback.css';
 
 class FeedbackMessage extends React.Component {
   onClickPlayAgain = () => {
@@ -21,28 +21,33 @@ class FeedbackMessage extends React.Component {
     return (
       <>
         <Header />
-        <h1 data-testid="feedback-text">
-          {assertions >= +'3' ? 'Well Done!' : 'Could be better...'}
-        </h1>
-        <h2>Total de pontos:</h2>
-        <p data-testid="feedback-total-score">{score}</p>
-        <h2>Total de acertos:</h2>
-        <p data-testid="feedback-total-question">{assertions}</p>
-        <button
-          type="button"
-          onClick={ this.onClickPlayAgain }
-          data-testid="btn-play-again"
-        >
-          Play Again
+        <div className="feedback-container">
+          <h1 data-testid="feedback-text">
 
-        </button>
-        <button
-          type="button"
-          onClick={ this.onClickRanking }
-          data-testid="btn-ranking"
-        >
-          Ranking
-        </button>
+            {assertions >= +'3' ? 'Well Done!' : 'Could be better...'}
+          </h1>
+          <h2>Total de pontos:</h2>
+          <p data-testid="feedback-total-score">{score}</p>
+          <h2>Total de acertos:</h2>
+          <p data-testid="feedback-total-question">{assertions}</p>
+          <button
+            className="btn"
+            type="button"
+            onClick={ this.onClickPlayAgain }
+            data-testid="btn-play-again"
+          >
+            Play Again
+
+          </button>
+          <button
+            className="btn"
+            type="button"
+            onClick={ this.onClickRanking }
+            data-testid="btn-ranking"
+          >
+            Ranking
+          </button>
+        </div>
       </>
     );
   }

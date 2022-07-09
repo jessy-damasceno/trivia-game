@@ -1,0 +1,13 @@
+.feedback-container {
+  align-items: center;
+  background-color: black;
+  border: 3px solid white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  height: 100%;
+  justify-content: center;
+  margin: auto;
+  padding: 2rem;
+  width: 60%;
+}

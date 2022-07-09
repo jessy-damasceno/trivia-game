@@ -1,3 +1,19 @@
+header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem auto;
+}
+
+header div {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
 .gravatar-icon {
   width: 50px;
 }
